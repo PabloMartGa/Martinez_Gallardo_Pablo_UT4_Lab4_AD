@@ -13,17 +13,15 @@ import util.HibernateUtil;
 import java.util.List;
 
 /**
- * Demostración lineal de las 5 operaciones del laboratorio.
+ * Demostración lineal de las 4 operaciones del laboratorio.
  * No depende de los datos de ejemplo de las naves (solo necesita el planeta 2 = Yavin IV),
  * así que funciona igual tras ejecutar init_holonet_sqlite.sql o reset_datos_holonet.sql.
- *
- * Nota: la operación 5 (CSV) añade 5 naves cada vez que se ejecuta. Para repetirla desde
- * cero, ejecuta antes sql/reset_datos_holonet.sql.
  */
 public class Sistema_Holonet_SQLite_Polimorfismo {
 
     public static void main(String[] args) {
         HolonetControl control = new HolonetControl();
+        System.out.println("BD: " + new java.io.File("holonet.db").getAbsolutePath());
 
         try {
             // ---------------------------------------------------------------
@@ -58,14 +56,6 @@ public class Sistema_Holonet_SQLite_Polimorfismo {
             System.out.println("Baja del destructor " + nebulon.getId() + ": "
                     + control.darDeBajaNave(nebulon.getId()));
             System.out.println("Baja de la nave 9999 (no existe): " + control.darDeBajaNave(9999));
-
-            // ---------------------------------------------------------------
-            titulo("OPERACIÓN 5 - Importación masiva desde CSV (transacción única)");
-            int importadas = control.importarFlotaDesdeCSV("refuerzos_borde_exterior.csv");
-            System.out.println("Naves importadas: " + importadas);
-
-            System.out.println("\nCazas con potencia >= 90 tras la importación:");
-            mostrarCazas(control.obtenerCazasPorPotenciaMinima(90));
 
         } finally {
             HibernateUtil.cerrar();

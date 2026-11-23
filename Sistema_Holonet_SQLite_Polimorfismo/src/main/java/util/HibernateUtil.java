@@ -23,7 +23,7 @@ public final class HibernateUtil {
         try {
             return new Configuration().configure().buildSessionFactory();
         } catch (HibernateException ex) {
-            System.err.println("❌ Error al crear la SessionFactory: " + ex);
+            System.err.println("Error al crear la SessionFactory: " + ex);
             throw new ExceptionInInitializerError(ex);
         }
     }
